@@ -7,6 +7,7 @@ export interface LinkData {
   link: string,
   category: string,
   count?: number,
+  createdAt?: number,
 }
 
 const genId = (link: string) => {
@@ -17,7 +18,8 @@ const genId = (link: string) => {
 const addLink = (data: LinkData) => {
   const items = listLinks()
   data.id = genId(data.link);
-  if(items.find(item=> item.id == data.id)){
+  data.createdAt = new Date().getTime();
+  if(items.find(item=> item.id === data.id)){
     alert('already existing')
     return;
   }
@@ -27,7 +29,7 @@ const addLink = (data: LinkData) => {
 
 const countUp = (id: string) => {
   const items = listLinks()
-  const updateItem = items[items.findIndex(x=>x.id == id)] 
+  const updateItem = items[items.findIndex(x=>x.id === id)] 
   if(updateItem['count']){
     updateItem['count'] = updateItem['count'] + 1
   }else {
