@@ -26,6 +26,15 @@ const addLink = (data: LinkData) => {
   localStorage.setItem("items", JSON.stringify(items));
 };
 
+const updateLink = (data: LinkData) => {
+  const items = listLinks();
+  data.id = genId(data.link);
+  data.createdAt = new Date().getTime();
+  const index = items.findIndex((item) => item.id === data.id);
+  items[index] = data;
+  localStorage.setItem("items", JSON.stringify(items));
+};
+
 const countUp = (id: string) => {
   const items = listLinks();
   const updateItem = items[items.findIndex((x) => x.id === id)];
@@ -47,4 +56,4 @@ const listLinks = (): Array<LinkData> => {
   }
   return items;
 };
-export { addLink, listLinks, countUp };
+export { addLink, listLinks, countUp, updateLink };
