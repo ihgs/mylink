@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { countUp, LinkData, listLinks, updateLink } from "../libs/storage";
+import {
+  countUp,
+  deleteLink,
+  LinkData,
+  listLinks,
+  updateLink,
+} from "../libs/storage";
 
 interface SearchParam {
   title: string;
@@ -15,7 +21,8 @@ function LinkRow({ link, filterdLinks }: LinkRowProps) {
   const [mode, setMode] = useState<string>("show");
   const [newInput, setNewInput] = useState<LinkData>({ ...link });
 
-  const clickLink = (id: string | undefined | null) => {
+  const clickLink = () => {
+    const id = link.id;
     if (id) {
       countUp(id);
       filterdLinks();
@@ -28,6 +35,12 @@ function LinkRow({ link, filterdLinks }: LinkRowProps) {
     setMode("show");
   };
 
+  const clickDelete = () => {
+    const id = link.id;
+    if (id) {
+      deleteLink(id);
+    }
+  };
   const clickEdit = () => {
     setMode("edit");
   };
@@ -37,7 +50,7 @@ function LinkRow({ link, filterdLinks }: LinkRowProps) {
         {mode === "show" ? (
           <a
             href={link.link}
-            onClick={() => clickLink(link.id)}
+            onClick={clickLink}
             target="_blank"
             rel="noreferrer noopener"
             className="link"
@@ -86,7 +99,9 @@ function LinkRow({ link, filterdLinks }: LinkRowProps) {
             Update
           </button>
         )}
-        <button className="btn btn-sm btn-warning m-1">Delete</button>
+        <button className="btn btn-sm btn-warning m-1" onClick={clickDelete}>
+          Delete
+        </button>
       </td>
     </tr>
   );
