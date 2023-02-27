@@ -83,6 +83,9 @@ function LinkRow({ link, filterdLinks }: LinkRowProps) {
           />
         )}
       </td>
+      <td>
+        {link.tags}
+      </td>
       <td>{link.count}</td>
       <td>{new Date(link.createdAt!).toDateString()}</td>
       <td>
@@ -152,6 +155,7 @@ export default function LinkList(reload:any) {
           <tr>
             <th>title</th>
             <th>category</th>
+            <th>tags</th>
             <th>count</th>
             <th>createdAt</th>
             <th>action</th>
@@ -169,6 +173,7 @@ export default function LinkList(reload:any) {
                 onChange={(e) => changeSearchInput("category", e.target.value)}
               />
             </th>
+            <th></th>
             <th></th>
             <th></th>
             <th></th>

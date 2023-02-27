@@ -8,6 +8,7 @@ export interface LinkData {
   category: string;
   count?: number;
   createdAt?: number;
+  tags: Array<string>
 }
 
 const genId = (link: string) => {
@@ -61,6 +62,20 @@ const listLinks = (): Array<LinkData> => {
   } else {
     items = JSON.parse(saved);
   }
-  return items;
+
+  const nows:Array<LinkData> = []
+  const others: Array<LinkData> = []
+  items.forEach(item=>{
+    if(item.tags){
+      if(item.tags.indexOf('now') > -1){
+        nows.push(item)
+      }else {
+        others.push(item)
+      }
+    }else {
+        others.push(item)
+      }
+  })
+  return [...nows, ...others]
 };
 export { addLink, listLinks, countUp, updateLink, deleteLink };
