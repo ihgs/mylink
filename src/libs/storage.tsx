@@ -29,9 +29,9 @@ const addLink = (data: LinkData) => {
 const updateLink = (data: LinkData) => {
   const items = listLinks();
   data.id = genId(data.link);
-  data.createdAt = new Date().getTime();
   const index = items.findIndex((item) => item.id === data.id);
-  items[index] = data;
+  items[index]['title'] = data.title;
+  items[index]['category'] = data.category;
   localStorage.setItem("items", JSON.stringify(items));
 };
 

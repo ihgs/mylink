@@ -9,6 +9,7 @@ function App() {
   const [category, setCategory] = useState<string>("")
   const [title, setTitle] = useState<string>("")
   const [link, setLink] = useState<string>("")
+  const [reload, setReload] = useState<any>({})
 
   const handleCategory = (e: ChangeEvent<HTMLInputElement>) => {
     setCategory(e.target.value)
@@ -26,6 +27,7 @@ function App() {
     setCategory('')
     setTitle('')
     setLink('')
+    setReload({})
   }
 
 
@@ -35,12 +37,12 @@ function App() {
         <form onSubmit={saveLink}>
           <div>
             <input type="text" name="title" value={title} onChange={handleTitle}
-              className="input input-bordered w-full my-1" placeholder='Title'></input>
+              className="input input-bordered w-full my-1" placeholder='Title' required></input>
 
           </div>
           <div>
             <input type="url" name="link" value={link} onChange={handleLink}
-              className="input input-bordered w-full my-1" placeholder='Link'></input>
+              className="input input-bordered w-full my-1" placeholder='Link' required></input>
 
           </div>
           <div>
@@ -77,7 +79,7 @@ function App() {
         Manage Link
       </h1>
 
-      <LinkList />
+      <LinkList realod={reload} />
 
       {formView()}
 

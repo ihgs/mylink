@@ -39,6 +39,7 @@ function LinkRow({ link, filterdLinks }: LinkRowProps) {
     const id = link.id;
     if (id) {
       deleteLink(id);
+      filterdLinks();
     }
   };
   const clickEdit = () => {
@@ -107,7 +108,7 @@ function LinkRow({ link, filterdLinks }: LinkRowProps) {
   );
 }
 
-export default function LinkList() {
+export default function LinkList(reload:any) {
   const [links, setLinks] = useState<Array<LinkData>>([]);
   const [search, setSearch] = useState<SearchParam>({
     title: "",
@@ -116,7 +117,7 @@ export default function LinkList() {
 
   useEffect(() => {
     filtedLinks();
-  }, [search]);
+  }, [search, reload]);
 
   const changeSearchInput = (target: keyof SearchParam, value: string) => {
     const newone = { ...search };
