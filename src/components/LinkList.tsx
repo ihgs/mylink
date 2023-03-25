@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   countUp,
   deleteLink,
   LinkData,
-  listLinks,
   updateLink,
 } from "../libs/storage";
+import useLinks from "../libs/useLinks";
+import Tag from "./Tag";
 
 interface SearchParam {
   title: string;
@@ -84,7 +85,9 @@ function LinkRow({ link, filterdLinks }: LinkRowProps) {
         )}
       </td>
       <td>
-        {link.tags}
+        {link.tags &&
+          link.tags.map(tag=>{return <Tag value={tag}></Tag>})
+        }
       </td>
       <td>{link.count}</td>
       <td>{new Date(link.createdAt!).toDateString()}</td>
@@ -111,41 +114,17 @@ function LinkRow({ link, filterdLinks }: LinkRowProps) {
   );
 }
 
-export default function LinkList(reload:any) {
-  const [links, setLinks] = useState<Array<LinkData>>([]);
+export default function LinkList(reload: any) {
   const [search, setSearch] = useState<SearchParam>({
     title: "",
     category: "",
   });
-
-  useEffect(() => {
-    filtedLinks();
-  }, [search, reload]);
+  const [links, filter] = useLinks({title:search.title, category: search.category});
 
   const changeSearchInput = (target: keyof SearchParam, value: string) => {
     const newone = { ...search };
     newone[target] = value;
     setSearch(newone);
-  };
-
-  const filtedLinks = () => {
-    let items = listLinks();
-    if (search.title || search.category) {
-      items = items.filter((item) => {
-        if (search.title) {
-          if (!item.title.includes(search.title)) {
-            return false;
-          }
-        }
-        if (search.category) {
-          if (!item.category.includes(search.category)) {
-            return false;
-          }
-        }
-        return true;
-      });
-    }
-    setLinks(items);
   };
 
   return (
@@ -180,9 +159,9 @@ export default function LinkList(reload:any) {
           </tr>
         </thead>
         <tbody>
-          {links.map((link) => {
+          { Array.isArray(links)  && links.map((link:LinkData) => {
             return (
-              <LinkRow key={link.id} link={link} filterdLinks={filtedLinks} />
+              <LinkRow key={link.id} link={link} filterdLinks={filter} />
             );
           })}
         </tbody>
