@@ -6,7 +6,7 @@ const useLinks = (search: {title: string, category: string}) => {
 
   useEffect(() => {
     filtedLinks();
-  }, [search]);
+  }, []);
 
   const filtedLinks = () => {
     let items = listLinks();

@@ -1,25 +1,12 @@
 import { ChangeEvent, FormEvent, useState, DragEvent } from "react"
 import { addLink } from "../libs/storage"
+import Input from "./Input"
 
 const NewLink = ({postSave}: {postSave: any}) => {
   const [category, setCategory] = useState<string>("")
   const [title, setTitle] = useState<string>("")
   const [link, setLink] = useState<string>("")
   const [tags, setTags] = useState<string>("")
-
-  const handleCategory = (e: ChangeEvent<HTMLInputElement>) => {
-    setCategory(e.target.value)
-  }
-  const handleTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value)
-  }
-  const handleLink = (e: ChangeEvent<HTMLInputElement>) => {
-    setLink(e.target.value)
-  }
-
-  const handleTags = (e: ChangeEvent<HTMLInputElement>) => {
-    setTags(e.target.value)
-  }
 
   const onDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -43,31 +30,16 @@ const NewLink = ({postSave}: {postSave: any}) => {
 
 
   return (
-      <div className="grid grid-cols-1" onDrop={onDrop} onDragOver={onDragOver}>
+      <div className="grid grid-cols-1w" onDrop={onDrop} onDragOver={onDragOver}>
         <form onSubmit={saveLink}>
-          <div>
-            <input type="text" name="title" value={title} onChange={handleTitle}
-              className="input input-bordered w-full my-1" placeholder='Title' required></input>
-
-          </div>
-          <div>
-            <input type="url" name="link" value={link} onChange={handleLink}
-              className="input input-bordered w-full my-1" placeholder='Link' required></input>
-
-          </div>
-          <div>
-            <input type="text" name="category" value={category} onChange={handleCategory}
-              className="input input-bordered w-full my-1" placeholder='category'></input>
-
-          </div>
-          <div>
-            <input type="text" name="tags" value={tags} onChange={handleTags}
-              className="input input-bordered w-full my-1" placeholder='tag'></input>
-          </div>
-          <div>
+          <Input name="title" value={title} setValue={setTitle} required placeholder="Ttile"></Input>
+          <Input name="link" type="url" value={link} setValue={setLink} required placeholder="Link"></Input>
+          <Input name="category"  value={category} setValue={setCategory}  placeholder="category"></Input>
+          <Input name="tags"  value={tags} setValue={setTags}  placeholder="tag"></Input>
+          
             <input type="submit" value="Save" className="btn" />
 
-          </div>
+          
         </form>
       </div>
     )

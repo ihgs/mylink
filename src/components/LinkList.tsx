@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   countUp,
   deleteLink,
@@ -86,7 +86,7 @@ function LinkRow({ link, filterdLinks }: LinkRowProps) {
       </td>
       <td>
         {link.tags &&
-          link.tags.map(tag=>{return <Tag value={tag}></Tag>})
+          link.tags.map(tag=>{return <Tag value={tag} className="mr-2"></Tag>})
         }
       </td>
       <td>{link.count}</td>
@@ -119,7 +119,12 @@ export default function LinkList(reload: any) {
     title: "",
     category: "",
   });
-  const [links, filter] = useLinks({title:search.title, category: search.category});
+  const [links, filter] = useLinks(search);
+
+  useEffect(()=>{
+    if(!Array.isArray(filter)) filter()
+
+  },[search, reload])
 
   const changeSearchInput = (target: keyof SearchParam, value: string) => {
     const newone = { ...search };

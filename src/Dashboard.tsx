@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Card from "./components/Card";
 import Tag from "./components/Tag";
+import Title from "./components/Title";
 import { countUp, LinkData, listLinks } from "./libs/storage";
 
 
@@ -46,7 +47,7 @@ function Dashboard () {
               <a href={datum.link} target="_blank" className="link text-xl" onClick={()=>{clickLink(datum.id)}}>{datum.title}</a>
               { datum.tags &&
                 datum.tags.map(tag=>{
-                  return <Tag value={tag} />
+                  return <Tag value={tag} className="ml-2"/>
                 })
               }
             </li>
@@ -57,10 +58,8 @@ function Dashboard () {
   )}
 
   return (
-    <div className="px-20">
-      <h1 className="text-3xl font-bold underline m-10">
-        Dashboard
-      </h1>
+    <div className="App w-5/6 mx-auto">
+      <Title title="Dashboard" />
       <div className="flex flex-wrap">
       {
         categories.map(category=>{
