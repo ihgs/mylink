@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import Card from "./components/Card";
+import Tag from "./components/Tag";
 import { countUp, LinkData, listLinks } from "./libs/storage";
 
 
@@ -36,27 +38,23 @@ function Dashboard () {
       category = "No category"
     }
     return (
-      <div className="max-w-sm w-60 my-3 mr-3  rounded overflow-hidden bg-[#fca5a5] shadow-lg text-left px-5 py-4">
-        <div className="text-2xl pb-3">{category}</div>
-        <ul className="list-disc px-5">
+      <Card title={category}>
+      <ul className="list-disc list-inside">
         {linksData.map(datum=>{
           return (
             <li key={datum.id}>
               <a href={datum.link} target="_blank" className="link text-xl" onClick={()=>{clickLink(datum.id)}}>{datum.title}</a>
               { datum.tags &&
                 datum.tags.map(tag=>{
-                  return tag && <span className="inline-block bg-gray-200 rounded-full mx-2 px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">{tag}</span>
-
+                  return <Tag value={tag} />
                 })
               }
-    
             </li>
           )
         })}
         </ul>
-      </div>
-    )
-  }
+      </Card>
+  )}
 
   return (
     <div className="px-20">
