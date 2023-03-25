@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { LinkData, listLinks } from "./storage";
 
-const useLinks = (search: {title: string, category: string}) => {
-  const [links, setLinks] = useState<Array<LinkData>>([])
+const useLinks = (search: { title: string; category: string }) => {
+  const [links, setLinks] = useState<Array<LinkData>>([]);
 
   useEffect(() => {
     filtedLinks();
@@ -29,12 +29,10 @@ const useLinks = (search: {title: string, category: string}) => {
   };
 
   const filter = () => {
-    filtedLinks()
-  }
+    filtedLinks();
+  };
 
-  return [links, filter]
-
-
-}
+  return [links, filter];
+};
 
 export default useLinks;

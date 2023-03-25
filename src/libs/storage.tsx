@@ -8,7 +8,7 @@ export interface LinkData {
   category: string;
   count?: number;
   createdAt?: number;
-  tags: Array<string>
+  tags: Array<string>;
 }
 
 const genId = (link: string) => {
@@ -31,8 +31,8 @@ const updateLink = (data: LinkData) => {
   const items = listLinks();
   data.id = genId(data.link);
   const index = items.findIndex((item) => item.id === data.id);
-  items[index]['title'] = data.title;
-  items[index]['category'] = data.category;
+  items[index]["title"] = data.title;
+  items[index]["category"] = data.category;
   localStorage.setItem("items", JSON.stringify(items));
 };
 
@@ -63,19 +63,19 @@ const listLinks = (): Array<LinkData> => {
     items = JSON.parse(saved);
   }
 
-  const nows:Array<LinkData> = []
-  const others: Array<LinkData> = []
-  items.forEach(item=>{
-    if(item.tags){
-      if(item.tags.indexOf('now') > -1){
-        nows.push(item)
-      }else {
-        others.push(item)
+  const nows: Array<LinkData> = [];
+  const others: Array<LinkData> = [];
+  items.forEach((item) => {
+    if (item.tags) {
+      if (item.tags.indexOf("now") > -1) {
+        nows.push(item);
+      } else {
+        others.push(item);
       }
-    }else {
-        others.push(item)
-      }
-  })
-  return [...nows, ...others]
+    } else {
+      others.push(item);
+    }
+  });
+  return [...nows, ...others];
 };
 export { addLink, listLinks, countUp, updateLink, deleteLink };

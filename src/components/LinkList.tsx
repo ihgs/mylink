@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  countUp,
-  deleteLink,
-  LinkData,
-  updateLink,
-} from "../libs/storage";
+import { countUp, deleteLink, LinkData, updateLink } from "../libs/storage";
 import useLinks from "../libs/useLinks";
 import Tag from "./Tag";
 
@@ -86,8 +81,9 @@ function LinkRow({ link, filterdLinks }: LinkRowProps) {
       </td>
       <td>
         {link.tags &&
-          link.tags.map(tag=>{return <Tag value={tag} className="mr-2"></Tag>})
-        }
+          link.tags.map((tag) => {
+            return <Tag value={tag} className="mr-2"></Tag>;
+          })}
       </td>
       <td>{link.count}</td>
       <td>{new Date(link.createdAt!).toDateString()}</td>
@@ -121,10 +117,9 @@ export default function LinkList(reload: any) {
   });
   const [links, filter] = useLinks(search);
 
-  useEffect(()=>{
-    if(!Array.isArray(filter)) filter()
-
-  },[search, reload])
+  useEffect(() => {
+    if (!Array.isArray(filter)) filter();
+  }, [search, reload]);
 
   const changeSearchInput = (target: keyof SearchParam, value: string) => {
     const newone = { ...search };
@@ -164,11 +159,12 @@ export default function LinkList(reload: any) {
           </tr>
         </thead>
         <tbody>
-          { Array.isArray(links)  && links.map((link:LinkData) => {
-            return (
-              <LinkRow key={link.id} link={link} filterdLinks={filter} />
-            );
-          })}
+          {Array.isArray(links) &&
+            links.map((link: LinkData) => {
+              return (
+                <LinkRow key={link.id} link={link} filterdLinks={filter} />
+              );
+            })}
         </tbody>
       </table>
     </div>
