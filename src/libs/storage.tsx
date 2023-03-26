@@ -78,4 +78,27 @@ const listLinks = (): Array<LinkData> => {
   });
   return [...nows, ...others];
 };
-export { addLink, listLinks, countUp, updateLink, deleteLink };
+
+const listCategories = () => {
+  let saved = localStorage.getItem("categories");
+  let items: Array<string>;
+  if (!saved) {
+    items = [];
+  } else {
+    items = JSON.parse(saved);
+  }
+  return items;
+};
+
+const updateCategories = (items: Array<string>) => {
+  localStorage.setItem("categories", JSON.stringify(items));
+};
+export {
+  addLink,
+  listLinks,
+  countUp,
+  updateLink,
+  deleteLink,
+  listCategories,
+  updateCategories,
+};

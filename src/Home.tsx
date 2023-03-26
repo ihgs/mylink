@@ -11,7 +11,7 @@ function Home() {
   }
 
   return (
-    <div className="App w-5/6 mx-auto">
+    <div>
       <Title title="Manage Link" />
       <LinkList realod={reload} />
       <NewLink postSave={postSave}/>

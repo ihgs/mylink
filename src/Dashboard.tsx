@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Card from "./components/Card";
 import Tag from "./components/Tag";
 import Title from "./components/Title";
-import { countUp, LinkData, listLinks } from "./libs/storage";
+import { countUp, LinkData, listCategories, listLinks } from "./libs/storage";
 
 
 
@@ -15,7 +15,7 @@ function Dashboard () {
   useEffect(()=>{
     const linksData = listLinks()
     const linkMap: {[key: string]: Array<LinkData>} = {}
-    const tmp: Array<string> = []
+    const tmp: Array<string> = listCategories()
     linksData.forEach(datum=>{
       if(!(datum.category in linkMap)){
         linkMap[datum.category] = []
@@ -58,7 +58,7 @@ function Dashboard () {
   )}
 
   return (
-    <div className="App w-5/6 mx-auto">
+    <div>
       <Title title="Dashboard" />
       <div className="flex flex-wrap">
       {

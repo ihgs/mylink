@@ -144,7 +144,7 @@ export default function LinkList(reload: any) {
             <th>
               <Input
                 name="search_title"
-                setValue={(value:string)=> changeSearchInput("title", value)}
+                setValue={(value: string) => changeSearchInput("title", value)}
                 placeholder=""
                 value={search.title}
               />
@@ -152,7 +152,9 @@ export default function LinkList(reload: any) {
             <th>
               <Input
                 name="search_category"
-                setValue={(value:string)=> changeSearchInput("category", value)}
+                setValue={(value: string) =>
+                  changeSearchInput("category", value)
+                }
                 placeholder=""
                 value={search.category}
               />
