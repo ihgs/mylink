@@ -43,7 +43,7 @@ function Dashboard () {
       <ul className="list-disc list-inside">
         {linksData.map(datum=>{
           return (
-            <li key={datum.id}>
+            <li key={datum.id} className="break-all my-1">
               <a href={datum.link} target="_blank" className="link text-xl" onClick={()=>{clickLink(datum.id)}}>{datum.title}</a>
               { datum.tags &&
                 datum.tags.map(tag=>{
