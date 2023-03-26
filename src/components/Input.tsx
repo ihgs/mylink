@@ -7,6 +7,7 @@ const Input = ({
   placeholder,
   required = false,
   setValue,
+  className = "",
 }: {
   name: string;
   type?: string;
@@ -14,6 +15,7 @@ const Input = ({
   placeholder: string;
   required?: boolean;
   setValue: any;
+  className?: string;
 }) => {
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -25,7 +27,7 @@ const Input = ({
       name={name}
       value={value}
       onChange={onChange}
-      className="input input-bordered w-full my-1"
+      className={`input input-bordered ${className}`}
       placeholder={placeholder}
       required={required}
     ></input>

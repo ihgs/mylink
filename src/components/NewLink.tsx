@@ -37,6 +37,7 @@ const NewLink = ({ postSave }: { postSave: any }) => {
           setValue={setTitle}
           required
           placeholder="Ttile"
+          className="w-full my-1"
         ></Input>
         <Input
           name="link"
@@ -45,18 +46,21 @@ const NewLink = ({ postSave }: { postSave: any }) => {
           setValue={setLink}
           required
           placeholder="Link"
+          className="w-full my-1"
         ></Input>
         <Input
           name="category"
           value={category}
           setValue={setCategory}
           placeholder="category"
+          className="w-full my-1"
         ></Input>
         <Input
           name="tags"
           value={tags}
           setValue={setTags}
           placeholder="tag"
+          className="w-full my-1"
         ></Input>
 
         <input type="submit" value="Save" className="btn" />

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { countUp, deleteLink, LinkData, updateLink } from "../libs/storage";
 import useLinks from "../libs/useLinks";
+import Input from "./Input";
 import Tag from "./Tag";
 
 interface SearchParam {
@@ -81,8 +82,8 @@ function LinkRow({ link, filterdLinks }: LinkRowProps) {
       </td>
       <td>
         {link.tags &&
-          link.tags.map((tag) => {
-            return <Tag value={tag} className="mr-2"></Tag>;
+          link.tags.map((tag, index) => {
+            return <Tag key={index} value={tag} className="mr-2"></Tag>;
           })}
       </td>
       <td>{link.count}</td>
@@ -141,15 +142,19 @@ export default function LinkList(reload: any) {
           </tr>
           <tr>
             <th>
-              <input
-                className="input input-bordered"
-                onChange={(e) => changeSearchInput("title", e.target.value)}
+              <Input
+                name="search_title"
+                setValue={(value:string)=> changeSearchInput("title", value)}
+                placeholder=""
+                value={search.title}
               />
             </th>
             <th>
-              <input
-                className="input input-bordered"
-                onChange={(e) => changeSearchInput("category", e.target.value)}
+              <Input
+                name="search_category"
+                setValue={(value:string)=> changeSearchInput("category", value)}
+                placeholder=""
+                value={search.category}
               />
             </th>
             <th></th>
