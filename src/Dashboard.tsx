@@ -15,15 +15,15 @@ function Dashboard () {
   useEffect(()=>{
     const linksData = listLinks()
     const linkMap: {[key: string]: Array<LinkData>} = {}
-    const tmp: Array<string> = listCategories()
+    const tmp: Set<string> = new Set(listCategories())
     linksData.forEach(datum=>{
       if(!(datum.category in linkMap)){
         linkMap[datum.category] = []
-        tmp.push(datum.category)
+        tmp.add(datum.category)
       }
       linkMap[datum.category].push(datum)
     })
-    setCategories(tmp)
+    setCategories(Array.from(tmp))
     setLinks(linkMap)
   },[])
 
@@ -39,7 +39,7 @@ function Dashboard () {
       category = "No category"
     }
     return (
-      <Card title={category}>
+      <Card key={category} title={category}>
       <ul className="list-disc list-inside">
         {linksData.map(datum=>{
           return (
@@ -47,7 +47,7 @@ function Dashboard () {
               <a href={datum.link} target="_blank" className="link text-xl" onClick={()=>{clickLink(datum.id)}}>{datum.title}</a>
               { datum.tags &&
                 datum.tags.map(tag=>{
-                  return <Tag value={tag} className="ml-2"/>
+                  return <Tag key={tag} value={tag} className="ml-2"/>
                 })
               }
             </li>
