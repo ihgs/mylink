@@ -2,16 +2,22 @@ import { FormEvent, useState, useEffect } from "react";
 import { addLink } from "../libs/storage";
 import Input from "./Input";
 
-const NewLink = ({ linkParam, postSave }: { linkParam: string | undefined, postSave: any }) => {
+const NewLink = ({
+  linkParam,
+  postSave,
+}: {
+  linkParam: string | undefined;
+  postSave: any;
+}) => {
   const [category, setCategory] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [link, setLink] = useState<string>("");
   const [tags, setTags] = useState<string>("");
 
   useEffect(() => {
-    if(linkParam)  setLink(linkParam)
-  }, [linkParam])
-  
+    if (linkParam) setLink(linkParam);
+  }, [linkParam]);
+
   const saveLink = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addLink({ category, title, link, tags: tags.split(" ") });
@@ -23,7 +29,7 @@ const NewLink = ({ linkParam, postSave }: { linkParam: string | undefined, postS
   };
 
   return (
-    <div className="grid grid-cols-1w" >
+    <div className="grid grid-cols-1w">
       <form onSubmit={saveLink}>
         <Input
           name="title"
