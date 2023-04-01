@@ -111,7 +111,7 @@ function LinkRow({ link, filterdLinks }: LinkRowProps) {
   );
 }
 
-export default function LinkList(reload: any) {
+export default function LinkList() {
   const [search, setSearch] = useState<SearchParam>({
     title: "",
     category: "",
@@ -120,7 +120,7 @@ export default function LinkList(reload: any) {
 
   useEffect(() => {
     if (!Array.isArray(filter)) filter();
-  }, [search, reload]);
+  }, [search, filter]);
 
   const changeSearchInput = (target: keyof SearchParam, value: string) => {
     const newone = { ...search };

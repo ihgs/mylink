@@ -6,7 +6,7 @@ export interface Menu {
   title: string;
 }
 
-const Header = ({ menus }: { menus: Array<Menu> }) => {
+const Header = ({ menus, children }: { menus: Array<Menu>, children: ReactNode }) => {
   return (
     <div className="navbar bg-gray-500">
       <div className="navbar-start">
@@ -42,6 +42,9 @@ const Header = ({ menus }: { menus: Array<Menu> }) => {
         </div>
       </div>
       <div className="navbar-center"></div>
+      <div className="navbar-end">
+        {children}
+      </div>
     </div>
   );
 };
