@@ -5,6 +5,7 @@ import CategoryManager from './Category';
 import Header, { Menu } from './components/Header';
 import NewLink from './components/NewLink';
 import Dashboard from './Dashboard';
+import DataManager from './DataManager';
 import LinkManager from './LinkManager';
 
 
@@ -17,6 +18,7 @@ function App() {
     {link: `/`, title: "Home"},
     {link: `/linkmanager`, title: "Manage Link"},
     {link: `/categories`, title: "Category"},
+    {link: `/data`, title: "Data"},
   ] 
 
   const onDragOver = (e: DragEvent<HTMLDivElement>) => {
@@ -46,6 +48,8 @@ function App() {
         <Route path={`/`}  element={<DragDrop><Dashboard /></DragDrop>} />
    
         <Route path={`/categories`}  element={<CategoryManager />} />
+        <Route path={`/data`}  element={<DragDrop><DataManager /></DragDrop>} />
+   
       </Routes>
       <input type="checkbox" id="my-modal" checked={modal} defaultChecked={false} className="modal-toggle" />
       <div className="modal">

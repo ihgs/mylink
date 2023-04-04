@@ -48,7 +48,7 @@ const CategoryManager = () => {
             onDragEnd={dragEnd}
             className={index === dragIndex ? 'bg-gray-100' : ''}
             >
-            <div>{category != "" ? category : "No category"}</div>
+            <div>{category !== "" ? category : "No category"}</div>
           </li>
         )
       })}

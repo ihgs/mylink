@@ -35,16 +35,16 @@ function Dashboard () {
       }
     };
 
-    if(category == ""){
+    if(category === ""){
       category = "No category"
     }
     return (
       <Card key={category} title={category}>
       <ul className="list-disc list-inside">
-        {linksData.map(datum=>{
+        {linksData ? linksData.map(datum=>{
           return (
             <li key={datum.id} className="break-all my-1">
-              <a href={datum.link} target="_blank" className="link text-xl" onClick={()=>{clickLink(datum.id)}}>{datum.title}</a>
+              <a href={datum.link} target="_blank" rel="noreferrer" className="link text-xl" onClick={()=>{clickLink(datum.id)}}>{datum.title}</a>
               { datum.tags &&
                 datum.tags.map(tag=>{
                   return <Tag key={tag} value={tag} className="ml-2"/>
@@ -52,7 +52,7 @@ function Dashboard () {
               }
             </li>
           )
-        })}
+        }): null}
         </ul>
       </Card>
   )}
