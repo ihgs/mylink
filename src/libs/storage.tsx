@@ -94,28 +94,26 @@ const updateCategories = (items: Array<string>) => {
   localStorage.setItem("categories", JSON.stringify(items));
 };
 
-const loadData = ():string => {
+const loadData = (): string => {
   const categories = localStorage.getItem("categories");
   const items = localStorage.getItem("items");
 
-  return base64.encode(utf8.encode(
-    JSON.stringify({categories, items})
-  ));
-}
+  return base64.encode(utf8.encode(JSON.stringify({ categories, items })));
+};
 
-const decodeData = (data:string):string => {
-  return utf8.decode(base64.decode(data))
-}
+const decodeData = (data: string): string => {
+  return utf8.decode(base64.decode(data));
+};
 
 const saveData = (data: string): void => {
-  const jsonData = JSON.parse(data)
-  if(jsonData["categories"]){
+  const jsonData = JSON.parse(data);
+  if (jsonData["categories"]) {
     localStorage.setItem("categories", jsonData["categories"]);
   }
-  if(jsonData["items"]){
+  if (jsonData["items"]) {
     localStorage.setItem("items", jsonData["items"]);
   }
-}
+};
 export {
   addLink,
   listLinks,
