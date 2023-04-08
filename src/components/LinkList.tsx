@@ -120,7 +120,8 @@ export default function LinkList() {
 
   useEffect(() => {
     if (!Array.isArray(filter)) filter();
-  }, [search, filter]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search]);
 
   const changeSearchInput = (target: keyof SearchParam, value: string) => {
     const newone = { ...search };

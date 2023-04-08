@@ -6,6 +6,7 @@ const useLinks = (search: { title: string; category: string }) => {
 
   useEffect(() => {
     filtedLinks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filtedLinks = () => {

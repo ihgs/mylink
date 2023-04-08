@@ -12,6 +12,7 @@
     "@types/react-dom": "^18.0.10",
     "base-64": "^1.0.0",
     "daisyui": "^2.51.0",
+    "js-file-download": "^0.4.12",
     "jszip": "^3.10.1",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
