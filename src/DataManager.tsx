@@ -23,7 +23,7 @@ const LinkTable = ({ data }: { data: string }) => {
           {Array.isArray(links) &&
             links.map((link: LinkData) => {
               return (
-                <tr>
+                <tr key={link.id}>
                   <td>{link.title}</td>
                   <td>{link.category}</td>
                   <td>{link.tags}</td>
@@ -52,8 +52,6 @@ const DataManager = () => {
     let input = event.target;
     if (input?.files) {
       for (let index = 0; index < input.files.length; index++) {
-        console.log(input.files[index]);
-
         let reader = new FileReader();
         reader.onload = () => {
           const text = reader.result?.toString();
