@@ -1,3 +1,4 @@
+import fileDownload from "js-file-download";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react"
 import { clearMemo, loadMemo, saveMemo } from "./libs/storage";
 
@@ -58,11 +59,21 @@ const Memo = () => {
       setMemo( before + today + after)
     }
   }
+
+  const download = () => {
+    const now = new Date()
+    const fileName = `memo_${now.getFullYear()}${now.getMonth()+1}${now.getDate()}${now.getHours()}${now.getMinutes()}.txt`
+    fileDownload(memo, fileName);
+  };
+
   return (
     <div>
       <div className="flex mt-2 ml-4 h-6 ">
         <div className="flex text-slate-600">
           {action}
+        </div>
+        <div className="flex ml-auto">
+          <label className="link link-hover" onClick={download}>Download</label>
         </div>
       </div>
       <textarea className="textarea textarea-bordered leading-5 w-full my-1 h-[calc(100vh-74px)]" 
