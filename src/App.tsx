@@ -79,13 +79,7 @@ function App() {
               </DragDrop>
             }
           />
-          <Route
-            path={`/memo`}
-            element={
-                <Memo />
-              
-            }
-          />
+          <Route path={`/memo`} element={<Memo />} />
         </Routes>
         <input
           type="checkbox"
