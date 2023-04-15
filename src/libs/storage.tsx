@@ -114,6 +114,22 @@ const saveData = (data: string): void => {
     localStorage.setItem("items", jsonData["items"]);
   }
 };
+
+const saveMemo = (data: string): void => {
+  if (data) {
+    localStorage.setItem("memo", data);
+  }
+};
+
+const loadMemo = (): string => {
+  const memo = localStorage.getItem("memo");
+  return memo ? memo : "";
+};
+
+const clearMemo = () => {
+  localStorage.removeItem("memo");
+};
+
 export {
   addLink,
   listLinks,
@@ -125,4 +141,7 @@ export {
   loadData,
   saveData,
   decodeData,
+  saveMemo,
+  loadMemo,
+  clearMemo,
 };

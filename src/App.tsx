@@ -7,6 +7,7 @@ import NewLink from "./components/NewLink";
 import Dashboard from "./Dashboard";
 import DataManager from "./DataManager";
 import LinkManager from "./LinkManager";
+import Memo from "./Memo";
 
 function App() {
   const [modal, setModal] = useState<boolean>(false);
@@ -16,6 +17,7 @@ function App() {
     { link: `/linkmanager`, title: "Manage Link" },
     { link: `/categories`, title: "Category" },
     { link: `/data`, title: "Data" },
+    { link: `/memo`, title: "Memo" },
   ];
 
   const onDragOver = (e: DragEvent<HTMLDivElement>) => {
@@ -75,6 +77,13 @@ function App() {
               <DragDrop>
                 <DataManager />
               </DragDrop>
+            }
+          />
+          <Route
+            path={`/memo`}
+            element={
+                <Memo />
+              
             }
           />
         </Routes>
