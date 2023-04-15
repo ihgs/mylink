@@ -1,15 +1,21 @@
-import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react"
+import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react"
 import { clearMemo, loadMemo, saveMemo } from "./libs/storage";
 
 
 const timeout = 1000
 const Memo = () => {
+  const isFirst = useRef(true);
+
   const savedMemo = loadMemo()
   const [memo, setMemo] = useState(savedMemo.memo);
   const [version, setVersion] = useState(savedMemo.version);
   const [action, setAction] = useState<string>("");
 
   useEffect(() => {
+    if (isFirst.current) {
+      isFirst.current = false;
+      return
+    }
     const timeoutId = setTimeout(()=>{
       if(memo){
         try{
