@@ -2,7 +2,7 @@ import fileDownload from "js-file-download";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import { clearMemo, loadMemo, saveMemo } from "./libs/storage";
 
-const timeout = 1000;
+const timeout = 5000;
 const Memo = () => {
   const isFirst = useRef(true);
 
