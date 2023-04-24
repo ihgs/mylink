@@ -1,7 +1,30 @@
 import fileDownload from "js-file-download";
-import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
-import { addTask, clearMemo, deleteTask, listTasks, loadMemo, saveMemo } from "./libs/storage";
+import {
+  ChangeEvent,
+  KeyboardEvent,
+  MouseEvent,
+  MouseEventHandler,
+  SyntheticEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import {
+  addTask,
+  clearMemo,
+  deleteTask,
+  listTasks,
+  loadMemo,
+  saveMemo,
+  updateTask,
+} from "./libs/storage";
 
+const lTriangle = `w-0 h-0 border-t-[14px] border-t-transparent border-r-[21px]  border-b-[14px] border-b-transparent`;
+const hoverlTriangle = `hover:w-0 h-0 hover:border-t-[14px] hover:border-t-transparent hover:border-r-[21px]  hover:border-b-[14px] hover:border-b-transparent hover:border-slate-700`;
+const rTriangle =
+  "w-0 h-0 border-t-[14px] border-t-transparent border-l-[21px]  border-b-[14px] border-b-transparent";
+const hoverrTriangle =
+  "hover:w-0 hover:h-0 hover:border-t-[14px] hover:border-t-transparent hover:border-l-[21px]  hover:border-b-[14px] hover:border-b-transparent hover:border-slate-700";
 const timeout = 5000;
 const Memo = () => {
   const isFirst = useRef(true);
@@ -45,19 +68,27 @@ const Memo = () => {
     return () => clearTimeout(timeoutId);
   }, [memo]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const ts = listTasks();
-    ts.sort((a:any,b:any)=>{
+    ts.sort((a: any, b: any) => {
       return a.rank - b.rank;
-    })
-    setTasks(ts)
-  },[reload])
+    });
+    setTasks(ts);
+  }, [reload]);
 
-  const addNewTask = () => {
-    
+  const addNewTask = (event: SyntheticEvent) => {
+    event.preventDefault();
+
     addTask(newTask, newRank);
-    setReload({})
-  }
+    setReload({});
+  };
+
+  const updateRank = (event: MouseEvent<HTMLDivElement>) => {
+    const crank = event.currentTarget.dataset.tip || "0";
+    const ctask = event.currentTarget.dataset.task;
+    updateTask(ctask, parseInt(crank));
+    setReload({});
+  };
 
   const changeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const data = e.target.value;
@@ -102,30 +133,66 @@ const Memo = () => {
       </div>
       <div className="flex flex-col w-[32rem]  mt-2 ml-2">
         <div className="h-6"></div>
-        
+
         <div>
-          <form className="form my-1">
+          <form className="form my-1" onSubmit={addNewTask}>
             <div className="input-group">
-              <input type="text" className="input input-bordered focus:outline-none input-sm" placeholder="task" onChange={(e)=>{setNewTask(e.target.value)}}></input>
-              <input type="number" max="9" className="input input-bordered focus:outline-none w-14 input-sm" placeholder="rank" value={newRank} onChange={(e)=>{setNewRank(e.target.valueAsNumber)}}></input>
-              <button type="button" className="btn btn-sm" onClick={addNewTask} >Save</button>
+              <input
+                type="text"
+                className="input input-bordered focus:outline-none input-sm"
+                placeholder="task"
+                onChange={(e) => {
+                  setNewTask(e.target.value);
+                }}
+              ></input>
+              <input
+                type="number"
+                min="0"
+                max="9"
+                className="input input-bordered focus:outline-none w-14 input-sm"
+                placeholder="rank"
+                value={newRank}
+                onChange={(e) => {
+                  setNewRank(e.target.valueAsNumber);
+                }}
+              ></input>
+              <button type="submit" className="btn btn-sm" onClick={addNewTask}>
+                Save
+              </button>
             </div>
-            
           </form>
         </div>
         <div className="text-left pl-2 pt-4">
-          {
-            tasks.map(task=>{
-              return (
-                <div key={task.task} className="flex w-full p-1">
-                  <span className="mr-auto">
-                    {task.task}
-                  </span>
-                  <button className="btn btn-sm" onClick={()=>{deleteTask(task.task);setReload({})}}>Del</button>
+          {tasks.map((task) => {
+            return (
+              <div key={task.task} className="flex w-full p-1">
+                <span className="mr-auto break-all">{task.task}</span>
+                <div className="flex">
+                  <div
+                    className={`${lTriangle} ${hoverlTriangle} mx-0.5 tooltip`}
+                    data-task={task.task}
+                    data-tip={task.rank - 1}
+                    onClick={updateRank}
+                  ></div>
+                  <div
+                    className={`${rTriangle} ${hoverrTriangle} mx-0.5 tooltip`}
+                    data-task={task.task}
+                    data-tip={task.rank + 1}
+                    onClick={updateRank}
+                  ></div>
                 </div>
-              )
-            })
-          }
+                <button
+                  className="btn btn-sm"
+                  onClick={() => {
+                    deleteTask(task.task);
+                    setReload({});
+                  }}
+                >
+                  Del
+                </button>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

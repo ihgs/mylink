@@ -177,7 +177,7 @@ const deleteTask = (task: string) => {
 
 const doneTask = (task: string) => {
   const tasks = listTasks().map((datum) => {
-    if (datum === task) {
+    if (datum.task === task) {
       return { ...datum, status: "done" };
     } else {
       return datum;
@@ -188,8 +188,19 @@ const doneTask = (task: string) => {
 
 const undoneTask = (task: string) => {
   const tasks = listTasks().map((datum) => {
-    if (datum === task) {
+    if (datum.task === task) {
       return { task: datum.task, rank: datum.rank };
+    } else {
+      return datum;
+    }
+  });
+  localStorage.setItem("mylink_tasks", JSON.stringify(tasks));
+};
+
+const updateTask = (task?: string, rank?: number) => {
+  const tasks = listTasks().map((datum) => {
+    if (datum.task === task) {
+      return { ...datum, rank };
     } else {
       return datum;
     }
@@ -214,6 +225,7 @@ export {
   listTasks,
   addTask,
   deleteTask,
+  updateTask,
   doneTask,
   undoneTask,
 };
