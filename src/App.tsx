@@ -51,7 +51,7 @@ function App() {
           New
         </label>
       </Header>
-      <div className="App w-5/6 mx-auto">
+      <div className="App w-11/12 mx-auto">
         <Routes>
           <Route
             path={`/linkmanager`}
