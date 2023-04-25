@@ -3,7 +3,6 @@ import {
   ChangeEvent,
   KeyboardEvent,
   MouseEvent,
-  MouseEventHandler,
   SyntheticEvent,
   useEffect,
   useRef,
@@ -13,18 +12,20 @@ import {
   addTask,
   clearMemo,
   deleteTask,
+  doneTask,
   listTasks,
   loadMemo,
   saveMemo,
+  undoneTask,
   updateTask,
 } from "./libs/storage";
 
-const lTriangle = `w-0 h-0 border-t-[14px] border-t-transparent border-r-[21px]  border-b-[14px] border-b-transparent`;
-const hoverlTriangle = `hover:w-0 h-0 hover:border-t-[14px] hover:border-t-transparent hover:border-r-[21px]  hover:border-b-[14px] hover:border-b-transparent hover:border-slate-700`;
-const rTriangle =
-  "w-0 h-0 border-t-[14px] border-t-transparent border-l-[21px]  border-b-[14px] border-b-transparent";
-const hoverrTriangle =
-  "hover:w-0 hover:h-0 hover:border-t-[14px] hover:border-t-transparent hover:border-l-[21px]  hover:border-b-[14px] hover:border-b-transparent hover:border-slate-700";
+const uTriangle = `w-0 h-0 border-l-[18px] border-l-transparent border-b-[14px]  border-r-[18px] border-r-transparent`;
+const hoveruTriangle = `hover:w-0 h-0 hover:border-l-[18px] hover:border-l-transparent hover:border-b-[14px]  hover:border-r-[18px] hover:border-r-transparent hover:border-slate-700`;
+const dTriangle =
+  "w-0 h-0 border-l-[18px] border-l-transparent border-t-[14px]  border-r-[18px] border-r-transparent";
+const hoverdTriangle =
+  "hover:w-0 hover:h-0 hover:border-l-[18px] hover:border-l-transparent hover:border-t-[14px]  hover:border-r-[18px] hover:border-r-transparent hover:border-slate-700";
 const timeout = 5000;
 const Memo = () => {
   const isFirst = useRef(true);
@@ -71,7 +72,7 @@ const Memo = () => {
   useEffect(() => {
     const ts = listTasks();
     ts.sort((a: any, b: any) => {
-      return a.rank - b.rank;
+      return b.rank - a.rank;
     });
     setTasks(ts);
   }, [reload]);
@@ -111,6 +112,15 @@ const Memo = () => {
       now.getMonth() + 1
     }${now.getDate()}${now.getHours()}${now.getMinutes()}.txt`;
     fileDownload(memo, fileName);
+  };
+
+  const todoOrDone = (status: string, task: string) => {
+    if (status == "done") {
+      undoneTask(task);
+    } else {
+      doneTask(task);
+    }
+    setReload({});
   };
 
   return (
@@ -166,18 +176,27 @@ const Memo = () => {
           {tasks.map((task) => {
             return (
               <div key={task.task} className="flex w-full p-1">
-                <span className="mr-auto break-all">{task.task}</span>
-                <div className="flex">
+                <span
+                  className={`mr-auto  ${
+                    task.status == "done" ? "line-through decoration-2" : ""
+                  }`}
+                  onDoubleClick={() => {
+                    todoOrDone(task.status, task.task);
+                  }}
+                >
+                  {task.task}
+                </span>
+                <div className="flex flex-col mx-1">
                   <div
-                    className={`${lTriangle} ${hoverlTriangle} mx-0.5 tooltip`}
+                    className={`${uTriangle} ${hoveruTriangle} mb-[1px] tooltip tooltip-top`}
                     data-task={task.task}
-                    data-tip={task.rank - 1}
+                    data-tip={task.rank + 1}
                     onClick={updateRank}
                   ></div>
                   <div
-                    className={`${rTriangle} ${hoverrTriangle} mx-0.5 tooltip`}
+                    className={`${dTriangle} ${hoverdTriangle} mt-[1px] tooltip tooltip-bottom`}
                     data-task={task.task}
-                    data-tip={task.rank + 1}
+                    data-tip={task.rank - 1}
                     onClick={updateRank}
                   ></div>
                 </div>
