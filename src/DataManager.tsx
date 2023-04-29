@@ -3,7 +3,7 @@ import fileDownload from "js-file-download";
 import { ChangeEvent, useEffect, useState } from "react";
 
 const LinkTable = ({ data }: { data: string }) => {
-  const [links, setLinks] = useState<Array<any>>([]);
+  const [links, setLinks] = useState<Array<LinkData>>([]);
 
   useEffect(() => {
     const json = JSON.parse(data);
@@ -49,10 +49,10 @@ const DataManager = () => {
     }
   };
   const loadFile = (event: ChangeEvent<HTMLInputElement>) => {
-    let input = event.target;
+    const input = event.target;
     if (input?.files) {
       for (let index = 0; index < input.files.length; index++) {
-        let reader = new FileReader();
+        const reader = new FileReader();
         reader.onload = () => {
           const text = reader.result?.toString();
           if (text) {

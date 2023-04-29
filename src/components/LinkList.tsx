@@ -9,9 +9,11 @@ interface SearchParam {
   category: string;
 }
 
+export type FilterdLinks = ()=>void;
+
 interface LinkRowProps {
   link: LinkData;
-  filterdLinks: any;
+  filterdLinks: FilterdLinks;
 }
 
 function LinkRow({ link, filterdLinks }: LinkRowProps) {
@@ -120,7 +122,6 @@ export default function LinkList() {
 
   useEffect(() => {
     if (!Array.isArray(filter)) filter();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
   const changeSearchInput = (target: keyof SearchParam, value: string) => {

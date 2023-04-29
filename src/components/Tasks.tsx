@@ -4,6 +4,7 @@ import {
   deleteTask,
   doneTask,
   listTasks,
+  TaskData,
   undoneTask,
   updateTask,
 } from "../libs/storage";
@@ -16,10 +17,10 @@ const hoverdTriangle =
   "hover:w-0 hover:h-0 hover:border-l-[18px] hover:border-l-transparent hover:border-t-[14px]  hover:border-r-[18px] hover:border-r-transparent hover:border-slate-700";
 
 const Tasks = () => {
-  const [tasks, setTasks] = useState<Array<any>>([]);
+  const [tasks, setTasks] = useState<Array<TaskData>>([]);
   const [newTask, setNewTask] = useState<string>("");
   const [newRank, setNewRank] = useState<number>(3);
-  const [reload, setReload] = useState<any>();
+  const [reload, setReload] = useState<object>();
 
   useEffect(() => {
     const ts = listTasks();
@@ -43,7 +44,7 @@ const Tasks = () => {
     setReload({});
   };
 
-  const todoOrDone = (status: string, task: string) => {
+  const todoOrDone = (status: string | undefined, task: string) => {
     if (status === "done") {
       undoneTask(task);
     } else {

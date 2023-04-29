@@ -39,8 +39,12 @@ const Memo = () => {
           const newVersion = saveMemo({ memo, version });
           setVersion(newVersion);
           showInstantMessage("Saved");
-        } catch (e: any) {
-          showInstantMessage(e.toString());
+        } catch (e: unknown) {
+          if( e instanceof Error){
+            showInstantMessage(e.message);
+          } else {
+            showInstantMessage('internal error')
+          }
         }
       } else {
         clearMemo();

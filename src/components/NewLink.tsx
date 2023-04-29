@@ -2,12 +2,14 @@ import { FormEvent, useState, useEffect } from "react";
 import { addLink } from "../libs/storage";
 import Input from "./Input";
 
+type PostSave = () => void;
+
 const NewLink = ({
   linkParam,
   postSave,
 }: {
   linkParam: string | undefined;
-  postSave: any;
+  postSave: PostSave;
 }) => {
   const [category, setCategory] = useState<string>("");
   const [title, setTitle] = useState<string>("");

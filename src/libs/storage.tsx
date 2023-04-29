@@ -1,5 +1,5 @@
-const base64 = require("base-64");
-const utf8 = require("utf8");
+import base64 from "base-64"
+import utf8 from "utf8"
 
 export interface LinkData {
   id?: string | null;
@@ -9,6 +9,12 @@ export interface LinkData {
   count?: number;
   createdAt?: number;
   tags: Array<string>;
+}
+
+export interface TaskData {
+  task: string;
+  rank: number;
+  status?: string;
 }
 
 const genId = (link: string) => {
@@ -55,7 +61,7 @@ const countUp = (id: string) => {
   localStorage.setItem("items", JSON.stringify(items));
 };
 const listLinks = (): Array<LinkData> => {
-  let saved = localStorage.getItem("items");
+  const saved = localStorage.getItem("items");
   let items: Array<LinkData>;
   if (!saved) {
     items = [];
@@ -80,7 +86,7 @@ const listLinks = (): Array<LinkData> => {
 };
 
 const listCategories = () => {
-  let saved = localStorage.getItem("categories");
+  const saved = localStorage.getItem("categories");
   let items: Array<string>;
   if (!saved) {
     items = [];
@@ -130,7 +136,7 @@ const saveMemo = ({
       localStorage.setItem("memo", memo);
       return newVersion;
     }
-    throw "Conflict";
+    throw Error("Conflict");
   }
   return null;
 };
@@ -147,7 +153,7 @@ const clearMemo = () => {
   localStorage.removeItem("memo_version");
 };
 
-const listTasks = (): Array<any> => {
+const listTasks = (): Array<TaskData> => {
   const tasks = localStorage.getItem("mylink_tasks");
   if (!tasks) {
     return [];

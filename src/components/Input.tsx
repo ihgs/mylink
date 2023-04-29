@@ -1,5 +1,7 @@
 import { ChangeEvent } from "react";
 
+type SetValue = (value: string) => void;
+
 const Input = ({
   name,
   type = "text",
@@ -14,7 +16,7 @@ const Input = ({
   value: string;
   placeholder: string;
   required?: boolean;
-  setValue: any;
+  setValue: SetValue;
   className?: string;
 }) => {
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
