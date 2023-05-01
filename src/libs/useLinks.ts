@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { FilterdLinks } from "../components/LinkList";
 import { LinkData, listLinks } from "./storage";
 
-const useLinks = (search: { title: string; category: string }) : [Array<LinkData>, FilterdLinks]=> {
+const useLinks = (search: {
+  title: string;
+  category: string;
+}): [Array<LinkData>, FilterdLinks] => {
   const [links, setLinks] = useState<Array<LinkData>>([]);
 
   useEffect(() => {

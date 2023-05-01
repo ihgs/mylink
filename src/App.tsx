@@ -28,7 +28,9 @@ function App() {
   const onDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setModal(true);
-    setLink(e.dataTransfer?.getData("text")!);
+    if (e.dataTransfer) {
+      setLink(e.dataTransfer.getData("text"));
+    }
   };
 
   const DragDrop = ({ children }: { children: ReactNode }) => {

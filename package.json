@@ -35,7 +35,7 @@
     "build": "cross-env PUBLIC_URL=/mylink react-scripts build",
     "deploy": "npm run build && gh-pages -d build",
     "lint": "eslint src",
-    "format": "prettier --write ./src/**/*.{ts,tsx}"
+    "format": "prettier --write './src/**/*.{ts,tsx}'"
   },
   "eslintConfig": {
     "extends": [

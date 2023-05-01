@@ -9,12 +9,19 @@ interface SearchParam {
   category: string;
 }
 
-export type FilterdLinks = ()=>void;
+export type FilterdLinks = () => void;
 
 interface LinkRowProps {
   link: LinkData;
   filterdLinks: FilterdLinks;
 }
+
+const toDateString = (link: LinkData) => {
+  if (link.createdAt) {
+    return new Date(link.createdAt).toDateString();
+  }
+  return "";
+};
 
 function LinkRow({ link, filterdLinks }: LinkRowProps) {
   const [mode, setMode] = useState<string>("show");
@@ -89,7 +96,7 @@ function LinkRow({ link, filterdLinks }: LinkRowProps) {
           })}
       </td>
       <td>{link.count}</td>
-      <td>{new Date(link.createdAt!).toDateString()}</td>
+      <td>{toDateString(link)}</td>
       <td>
         {mode === "show" ? (
           <button className="btn btn-sm m-1" onClick={clickEdit}>

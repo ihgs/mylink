@@ -1,16 +1,6 @@
 import fileDownload from "js-file-download";
-import {
-  ChangeEvent,
-  KeyboardEvent,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import {
-  clearMemo,
-  loadMemo,
-  saveMemo,
-} from "./libs/storage";
+import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
+import { clearMemo, loadMemo, saveMemo } from "./libs/storage";
 import Tasks from "./components/Tasks";
 
 const timeout = 5000;
@@ -21,7 +11,7 @@ const Memo = () => {
   const [memo, setMemo] = useState(savedMemo.memo);
   const [version, setVersion] = useState(savedMemo.version);
   const [action, setAction] = useState<string>("");
-  
+
   const showInstantMessage = (msg: string) => {
     setAction(msg);
     setTimeout(() => {
@@ -40,10 +30,10 @@ const Memo = () => {
           setVersion(newVersion);
           showInstantMessage("Saved");
         } catch (e: unknown) {
-          if( e instanceof Error){
+          if (e instanceof Error) {
             showInstantMessage(e.message);
           } else {
-            showInstantMessage('internal error')
+            showInstantMessage("internal error");
           }
         }
       } else {
@@ -78,8 +68,6 @@ const Memo = () => {
     }${now.getDate()}${now.getHours()}${now.getMinutes()}.txt`;
     fileDownload(memo, fileName);
   };
-
-  
 
   return (
     <div className="flex w-full">
