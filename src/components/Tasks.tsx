@@ -24,7 +24,7 @@ const Tasks = () => {
 
   useEffect(() => {
     const ts = listTasks();
-    ts.sort((a: any, b: any) => {
+    ts.sort((a: TaskData, b: TaskData) => {
       return b.rank - a.rank;
     });
     setTasks(ts);
