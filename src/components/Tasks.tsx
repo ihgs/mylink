@@ -34,6 +34,7 @@ const Tasks = () => {
     event.preventDefault();
 
     addTask(newTask, newRank);
+    setNewTask('')
     setReload({});
   };
 
