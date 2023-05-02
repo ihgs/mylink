@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[snapshot]Card 1`] = `
+<div>
+  <div
+    class="max-w-sm w-60 my-3 mr-3  rounded overflow-hidden bg-[#fca5a5] shadow-lg text-left px-5 py-4"
+  >
+    <div
+      class="text-2xl pb-3"
+    >
+      test
+    </div>
+    <div>
+      <ul>
+        <li>
+          one
+        </li>
+        <li>
+          two
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;

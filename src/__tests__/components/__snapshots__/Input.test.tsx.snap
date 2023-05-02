@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[snapshot]Input 1`] = `
+<div>
+  <input
+    class="input input-bordered "
+    name="test"
+    placeholder=""
+    type="text"
+    value=""
+  />
+</div>
+`;
