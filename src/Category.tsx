@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { MouseEvent, MouseEventHandler, useEffect, useState } from "react";
 import Title from "./components/Title";
 import { listCategories, listLinks, updateCategories } from "./libs/storage";
 
@@ -30,6 +30,29 @@ const CategoryManager = () => {
     setDragIndex(index);
   };
 
+  const [modal, setModal] = useState<boolean>(false);
+  const [x, setX] = useState<number>(0);
+  const [y, setY] = useState<number>(0);
+  const [deleteTarget, setDeleteTarget] = useState<string>("");
+
+  const showMenu = (event: MouseEvent<HTMLElement>, category: string) => {
+    event.preventDefault();
+    console.log(event.clientX);
+    // setX(Math.round(event.clientX));
+    // setY(Math.round(event.clientY));
+    setDeleteTarget(category);
+    setModal(true);
+  };
+
+  const deleteCategory = () => {
+    const newCategories = categories.filter((c) => {
+      return c != deleteTarget;
+    });
+    setCategories(newCategories);
+    updateCategories(newCategories);
+    setModal(false);
+  };
+
   const dragEnd = () => {
     updateCategories(categories);
     setDragIndex(null);
@@ -47,6 +70,9 @@ const CategoryManager = () => {
               onDragEnter={() => dragEnter(index)}
               onDragOver={(event) => event.preventDefault()}
               onDragEnd={dragEnd}
+              onContextMenu={(event) => {
+                showMenu(event, category);
+              }}
               className={index === dragIndex ? "bg-gray-100" : ""}
             >
               <div>{category !== "" ? category : "No category"}</div>
@@ -54,6 +80,33 @@ const CategoryManager = () => {
           );
         })}
       </ul>
+
+      <div>
+        <input
+          type="checkbox"
+          id="menu-modal"
+          checked={modal}
+          readOnly
+          className="modal-toggle"
+        />
+        <div className="modal fixed" style={{ top: `${y}px`, left: `${x}px` }}>
+          <div className="modal-box">
+            <label
+              onClick={() => {
+                setModal(false);
+              }}
+              className="btn btn-sm btn-circle absolute right-2 top-2"
+            >
+              ✕
+            </label>
+            <div>
+              <button className="btn" onClick={deleteCategory}>
+                Delete 「{deleteTarget}」 ?
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
