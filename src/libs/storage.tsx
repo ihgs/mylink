@@ -26,8 +26,7 @@ const addLink = (data: LinkData) => {
   data.id = genId(data.link);
   data.createdAt = new Date().getTime();
   if (items.find((item) => item.id === data.id)) {
-    alert("already existing");
-    return;
+    throw new Error("already existing");
   }
   items.push(data);
   localStorage.setItem("items", JSON.stringify(items));
@@ -37,6 +36,9 @@ const updateLink = (data: LinkData) => {
   const items = listLinks();
   data.id = genId(data.link);
   const index = items.findIndex((item) => item.id === data.id);
+  if (index === -1) {
+    throw new Error("Not found");
+  }
   items[index]["title"] = data.title;
   items[index]["category"] = data.category;
   localStorage.setItem("items", JSON.stringify(items));
@@ -45,6 +47,9 @@ const updateLink = (data: LinkData) => {
 const deleteLink = (id: string) => {
   const items = listLinks();
   const index = items.findIndex((item) => item.id === id);
+  if (index === -1) {
+    return;
+  }
   items.splice(index, 1);
   localStorage.setItem("items", JSON.stringify(items));
 };
