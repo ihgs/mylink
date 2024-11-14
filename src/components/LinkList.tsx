@@ -138,12 +138,12 @@ export default function LinkList() {
     setSearch(newone);
   };
 
-  const ascLink = ()=>{
-    sort("asc")
-  }
+  const ascLink = () => {
+    sort("asc");
+  };
   const desLink = () => {
-    sort("des")
-  }
+    sort("des");
+  };
 
   return (
     <div>
@@ -178,9 +178,13 @@ export default function LinkList() {
             </th>
             <th></th>
             <th>
-              <a className="link p-1" onClick={desLink}>↓</a>
-              <a  className="link p-1" onClick={ascLink}>↑</a>
-              </th>
+              <a className="link p-1" onClick={desLink}>
+                ↓
+              </a>
+              <a className="link p-1" onClick={ascLink}>
+                ↑
+              </a>
+            </th>
             <th></th>
             <th></th>
           </tr>

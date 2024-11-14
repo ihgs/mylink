@@ -13,6 +13,13 @@ const Header = ({
   menus: Array<Menu>;
   children: ReactNode;
 }) => {
+  const closeList = () => {
+    const elem = document.activeElement;
+    if (elem) {
+      (elem as HTMLElement)?.blur();
+    }
+  };
+
   return (
     <div className="navbar bg-gray-500">
       <div className="navbar-start">
@@ -40,7 +47,9 @@ const Header = ({
             {menus.map((menu) => {
               return (
                 <li key={menu.link}>
-                  <Link to={menu.link}>{menu.title}</Link>
+                  <Link to={menu.link} onClick={closeList}>
+                    {menu.title}
+                  </Link>
                 </li>
               );
             })}

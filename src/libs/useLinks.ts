@@ -5,7 +5,7 @@ import { LinkData, listLinks } from "./storage";
 const useLinks = (search: {
   title: string;
   category: string;
-}): [Array<LinkData>, FilterdLinks,SortLinks ] => {
+}): [Array<LinkData>, FilterdLinks, SortLinks] => {
   const [links, setLinks] = useState<Array<LinkData>>([]);
 
   useEffect(() => {
@@ -36,13 +36,14 @@ const useLinks = (search: {
     setLinks(filtedLinks());
   };
 
-  const sort : SortLinks = (order) => {
+  const sort: SortLinks = (order) => {
     const items = filtedLinks();
-    setLinks(items.sort((a,b)=>{
-      return (order == "asc" ? +1 : -1)*((a.count ?? 0) - (b.count ?? 0))
-    }));
-  }
-
+    setLinks(
+      items.sort((a, b) => {
+        return (order == "asc" ? +1 : -1) * ((a.count ?? 0) - (b.count ?? 0));
+      })
+    );
+  };
 
   return [links, filter, sort];
 };
