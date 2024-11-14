@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { FilterdLinks } from "../components/LinkList";
+import { FilterdLinks, SortLinks } from "../components/LinkList";
 import { LinkData, listLinks } from "./storage";
 
 const useLinks = (search: {
   title: string;
   category: string;
-}): [Array<LinkData>, FilterdLinks] => {
+}): [Array<LinkData>, FilterdLinks,SortLinks ] => {
   const [links, setLinks] = useState<Array<LinkData>>([]);
 
   useEffect(() => {
@@ -29,14 +29,22 @@ const useLinks = (search: {
         return true;
       });
     }
-    setLinks(items);
+    return items;
   };
 
   const filter = () => {
-    filtedLinks();
+    setLinks(filtedLinks());
   };
 
-  return [links, filter];
+  const sort : SortLinks = (order) => {
+    const items = filtedLinks();
+    setLinks(items.sort((a,b)=>{
+      return (order == "asc" ? +1 : -1)*((a.count ?? 0) - (b.count ?? 0))
+    }));
+  }
+
+
+  return [links, filter, sort];
 };
 
 export default useLinks;

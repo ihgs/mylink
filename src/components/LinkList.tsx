@@ -10,6 +10,7 @@ interface SearchParam {
 }
 
 export type FilterdLinks = () => void;
+export type SortLinks = (order: "asc" | "des") => void;
 
 interface LinkRowProps {
   link: LinkData;
@@ -125,7 +126,7 @@ export default function LinkList() {
     title: "",
     category: "",
   });
-  const [links, filter] = useLinks(search);
+  const [links, filter, sort] = useLinks(search);
 
   useEffect(() => {
     if (!Array.isArray(filter)) filter();
@@ -136,6 +137,13 @@ export default function LinkList() {
     newone[target] = value;
     setSearch(newone);
   };
+
+  const ascLink = ()=>{
+    sort("asc")
+  }
+  const desLink = () => {
+    sort("des")
+  }
 
   return (
     <div>
@@ -169,7 +177,10 @@ export default function LinkList() {
               />
             </th>
             <th></th>
-            <th></th>
+            <th>
+              <a className="link p-1" onClick={desLink}>↓</a>
+              <a  className="link p-1" onClick={ascLink}>↑</a>
+              </th>
             <th></th>
             <th></th>
           </tr>
