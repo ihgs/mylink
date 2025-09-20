@@ -11,12 +11,6 @@ export interface LinkData {
   tags: Array<string>;
 }
 
-export interface TaskData {
-  task: string;
-  rank: number;
-  status?: string;
-}
-
 const genId = (link: string) => {
   return base64.encode(utf8.encode(link));
 };
@@ -126,99 +120,6 @@ const saveData = (data: string): void => {
   }
 };
 
-const saveMemo = ({
-  memo,
-  version,
-}: {
-  memo: string;
-  version: string | null;
-}): string | null => {
-  if (memo) {
-    const savedMemoVersion = localStorage.getItem("memo_version");
-    if (!savedMemoVersion || savedMemoVersion == version) {
-      const newVersion = new Date().getTime().toString();
-      localStorage.setItem("memo_version", newVersion);
-      localStorage.setItem("memo", memo);
-      return newVersion;
-    }
-    throw Error("Conflict");
-  }
-  return null;
-};
-
-const loadMemo = (): { memo: string; version: string | null } => {
-  const memo = localStorage.getItem("memo");
-  const version = localStorage.getItem("memo_version");
-
-  return memo ? { memo, version } : { memo: "", version };
-};
-
-const clearMemo = () => {
-  localStorage.removeItem("memo");
-  localStorage.removeItem("memo_version");
-};
-
-const listTasks = (): Array<TaskData> => {
-  const tasks = localStorage.getItem("mylink_tasks");
-  if (!tasks) {
-    return [];
-  }
-  return JSON.parse(tasks);
-};
-const addTask = (task: string, rank: number) => {
-  const tasks = listTasks();
-  tasks.push({ task, rank });
-  localStorage.setItem("mylink_tasks", JSON.stringify(tasks));
-};
-
-const deleteTask = (task: string) => {
-  const tasks = listTasks()
-    .map((datum) => {
-      if (datum.task === task) {
-        return undefined;
-      } else {
-        return datum;
-      }
-    })
-    .filter((datum) => {
-      return datum != undefined || datum != null;
-    });
-  localStorage.setItem("mylink_tasks", JSON.stringify(tasks));
-};
-
-const doneTask = (task: string) => {
-  const tasks = listTasks().map((datum) => {
-    if (datum.task === task) {
-      return { ...datum, status: "done" };
-    } else {
-      return datum;
-    }
-  });
-  localStorage.setItem("mylink_tasks", JSON.stringify(tasks));
-};
-
-const undoneTask = (task: string) => {
-  const tasks = listTasks().map((datum) => {
-    if (datum.task === task) {
-      return { task: datum.task, rank: datum.rank };
-    } else {
-      return datum;
-    }
-  });
-  localStorage.setItem("mylink_tasks", JSON.stringify(tasks));
-};
-
-const updateTask = (task?: string, rank?: number) => {
-  const tasks = listTasks().map((datum) => {
-    if (datum.task === task) {
-      return { ...datum, rank };
-    } else {
-      return datum;
-    }
-  });
-  localStorage.setItem("mylink_tasks", JSON.stringify(tasks));
-};
-
 export {
   addLink,
   listLinks,
@@ -230,13 +131,4 @@ export {
   loadData,
   saveData,
   decodeData,
-  saveMemo,
-  loadMemo,
-  clearMemo,
-  listTasks,
-  addTask,
-  deleteTask,
-  updateTask,
-  doneTask,
-  undoneTask,
 };

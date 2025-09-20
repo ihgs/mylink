@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { countUp, deleteLink, LinkData, updateLink } from "../libs/storage";
+import { countUp, deleteLink, LinkData, updateLink } from "../libs/linkStorage";
 import useLinks from "../libs/useLinks";
 import Input from "./Input";
 import Tag from "./Tag";

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FilterdLinks, SortLinks } from "../components/LinkList";
-import { LinkData, listLinks } from "./storage";
+import { LinkData, listLinks } from "./linkStorage";
 
 const useLinks = (search: {
   title: string;

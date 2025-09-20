@@ -1,6 +1,6 @@
 import fileDownload from "js-file-download";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
-import { clearMemo, loadMemo, saveMemo } from "./libs/storage";
+import { clearMemo, loadMemo, saveMemo } from "./libs/memoStorage";
 import Tasks from "./components/Tasks";
 
 const timeout = 5000;

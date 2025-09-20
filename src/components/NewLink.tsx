@@ -1,5 +1,5 @@
 import { FormEvent, useState, useEffect } from "react";
-import { addLink } from "../libs/storage";
+import { addLink } from "../libs/linkStorage";
 import Input from "./Input";
 
 type PostSave = () => void;

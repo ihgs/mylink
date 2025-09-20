@@ -7,7 +7,7 @@ import {
   TaskData,
   undoneTask,
   updateTask,
-} from "../libs/storage";
+} from "../libs/taskStorage";
 
 const uTriangle = `w-0 h-0 border-l-[18px] border-l-transparent border-b-[14px]  border-r-[18px] border-r-transparent`;
 const hoveruTriangle = `hover:w-0 h-0 hover:border-l-[18px] hover:border-l-transparent hover:border-b-[14px]  hover:border-r-[18px] hover:border-r-transparent hover:border-slate-700`;

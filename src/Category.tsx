@@ -1,6 +1,6 @@
 import { MouseEvent, MouseEventHandler, useEffect, useState } from "react";
 import Title from "./components/Title";
-import { listCategories, listLinks, updateCategories } from "./libs/storage";
+import { listCategories, listLinks, updateCategories } from "./libs/linkStorage";
 
 const CategoryManager = () => {
   const [categories, setCategories] = useState<Array<string>>([]);

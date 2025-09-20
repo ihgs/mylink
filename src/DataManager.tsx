@@ -1,4 +1,4 @@
-import { decodeData, LinkData, loadData, saveData } from "./libs/storage";
+import { decodeData, LinkData, loadData, saveData } from "./libs/linkStorage";
 import fileDownload from "js-file-download";
 import { ChangeEvent, useEffect, useState } from "react";
 

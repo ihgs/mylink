@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Card from "./components/Card";
 import Tag from "./components/Tag";
 import Title from "./components/Title";
-import { countUp, LinkData, listCategories, listLinks } from "./libs/storage";
+import { countUp, LinkData, listCategories, listLinks } from "./libs/linkStorage";
 
 function Dashboard() {
   const [links, setLinks] = useState<{ [key: string]: Array<LinkData> }>({});
