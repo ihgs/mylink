@@ -9,6 +9,7 @@ export interface LinkData {
   count?: number;
   createdAt?: number;
   tags: Array<string>;
+  priority?: number;
 }
 
 const genId = (link: string) => {
@@ -35,6 +36,7 @@ const updateLink = (data: LinkData) => {
   }
   items[index]["title"] = data.title;
   items[index]["category"] = data.category;
+  items[index]["priority"] = data.priority;
   localStorage.setItem("items", JSON.stringify(items));
 };
 
@@ -68,20 +70,12 @@ const listLinks = (): Array<LinkData> => {
     items = JSON.parse(saved);
   }
 
-  const nows: Array<LinkData> = [];
-  const others: Array<LinkData> = [];
-  items.forEach((item) => {
-    if (item.tags) {
-      if (item.tags.indexOf("now") > -1) {
-        nows.push(item);
-      } else {
-        others.push(item);
-      }
-    } else {
-      others.push(item);
-    }
+  items.sort((a, b) => {
+    const pa = a.priority ?? -Infinity;
+    const pb = b.priority ?? -Infinity;
+    return pb - pa;
   });
-  return [...nows, ...others];
+  return [...items];
 };
 
 const listCategories = () => {

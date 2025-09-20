@@ -96,6 +96,21 @@ function LinkRow({ link, filterdLinks }: LinkRowProps) {
             return <Tag key={index} value={tag} className="mr-2"></Tag>;
           })}
       </td>
+      <td>
+        {mode === "show" ? (
+          link.priority ?? ""
+        ) : (
+          <input
+            type="number"
+            className="input input-bordered"
+            value={newInput.priority ?? ""}
+            onChange={(e) => {
+              const value = e.target.value === "" ? undefined : Number(e.target.value);
+              setNewInput({ ...newInput, priority: value });
+            }}
+          />
+        )}
+      </td>
       <td>{link.count}</td>
       <td>{toDateString(link)}</td>
       <td>
@@ -153,6 +168,7 @@ export default function LinkList() {
             <th>title</th>
             <th>category</th>
             <th>tags</th>
+            <th>priority</th>
             <th>count</th>
             <th>createdAt</th>
             <th>action</th>
@@ -176,6 +192,7 @@ export default function LinkList() {
                 value={search.category}
               />
             </th>
+            <th></th>
             <th></th>
             <th>
               <a className="link p-1" onClick={desLink}>
