@@ -1,13 +1,13 @@
 import { DragEvent, ReactNode, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import CategoryManager from "./Category";
+import CategoryManager from "./pages/Category";
 import Header, { Menu } from "./components/Header";
 import NewLink from "./components/NewLink";
-import Dashboard from "./Dashboard";
-import DataManager from "./DataManager";
-import LinkManager from "./LinkManager";
-import Memo from "./Memo";
+import Dashboard from "./pages/Dashboard";
+import DataManager from "./pages/DataManager";
+import LinkManager from "./pages/LinkManager";
+import Memo from "./pages/Memo";
 
 function App() {
   const [modal, setModal] = useState<boolean>(false);
